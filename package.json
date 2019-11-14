@@ -6,12 +6,15 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon ./src/index.ts",
-    "build": "rm -rf dist && tsc"
+    "build": "rm -rf dist && tsc",
+    "lint": "eslint src --ext .ts,.tsx"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^3.0.6",
+    "jsonwebtoken": "^8.5.1",
     "koa": "^2.11.0",
     "koa-bodyparser": "^4.2.1",
     "koa-jwt": "^3.6.0",
@@ -24,6 +27,8 @@
   "devDependencies": {
     "@commitlint/cli": "^8.2.0",
     "@commitlint/config-conventional": "^8.2.0",
+    "@types/bcrypt": "^3.0.0",
+    "@types/jsonwebtoken": "^8.3.5",
     "@types/koa": "^2.0.52",
     "@types/koa-bodyparser": "^4.3.0",
     "@types/koa-router": "^7.0.42",
@@ -39,6 +44,7 @@
   },
   "husky": {
     "hooks": {
+      "pre-commit": "npm run lint",
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
   }

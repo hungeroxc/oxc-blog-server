@@ -1,4 +1,4 @@
-import { Test } from './../controller/index'
+import { UserController } from './../controller/index'
 
 export interface RouteItem {
     path: string
@@ -8,8 +8,13 @@ export interface RouteItem {
 
 export const AppRoutes: RouteItem[] = [
     {
-        path: '/test',
-        method: 'get',
-        action: Test.test
+        path: '/register',
+        method: 'post',
+        action: UserController.register
+    },
+    {
+        path: '/login',
+        method: 'post',
+        action: UserController.login
     }
 ]

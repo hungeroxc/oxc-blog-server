@@ -8,12 +8,12 @@ export interface RouteItem {
 
 export const AppRoutes: RouteItem[] = [
     {
-        path: '/register',
+        path: '/api/register',
         method: 'post',
         action: UserController.register
     },
     {
-        path: '/login',
+        path: '/api/login',
         method: 'post',
         action: UserController.login
     }

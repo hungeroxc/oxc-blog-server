@@ -1,51 +1,52 @@
 {
-  "name": "oxc-blog-server",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon ./src/index.ts",
-    "build": "rm -rf dist && tsc",
-    "lint": "eslint src --ext .ts,.tsx"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "bcrypt": "^3.0.6",
-    "jsonwebtoken": "^8.5.1",
-    "koa": "^2.11.0",
-    "koa-bodyparser": "^4.2.1",
-    "koa-jwt": "^3.6.0",
-    "koa-router": "^7.4.0",
-    "koa2-cors": "^2.0.6",
-    "mysql2": "^2.0.0",
-    "reflect-metadata": "^0.1.13",
-    "typeorm": "^0.2.20"
-  },
-  "devDependencies": {
-    "@commitlint/cli": "^8.2.0",
-    "@commitlint/config-conventional": "^8.2.0",
-    "@types/bcrypt": "^3.0.0",
-    "@types/jsonwebtoken": "^8.3.5",
-    "@types/koa": "^2.0.52",
-    "@types/koa-bodyparser": "^4.3.0",
-    "@types/koa-router": "^7.0.42",
-    "@types/koa2-cors": "^2.0.1",
-    "@typescript-eslint/eslint-plugin": "^2.6.1",
-    "@typescript-eslint/parser": "^2.6.1",
-    "eslint": "^6.6.0",
-    "eslint-config-prettier": "^6.5.0",
-    "eslint-plugin-prettier": "^3.1.1",
-    "husky": "^3.0.9",
-    "prettier": "^1.19.0",
-    "typescript": "^3.7.2"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run lint",
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    "name": "oxc-blog-server",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "dev": "cross-env DBNAME=blogtest DBACCOUNT=www DBPASSWORD=www nodemon ./src/index.ts",
+        "build": "rm -rf dist && tsc",
+        "lint": "eslint src --ext .ts,.tsx"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "bcrypt": "^3.0.6",
+        "jsonwebtoken": "^8.5.1",
+        "koa": "^2.11.0",
+        "koa-bodyparser": "^4.2.1",
+        "koa-jwt": "^3.6.0",
+        "koa-router": "^7.4.0",
+        "koa2-cors": "^2.0.6",
+        "mysql2": "^2.0.0",
+        "reflect-metadata": "^0.1.13",
+        "typeorm": "^0.2.20"
+    },
+    "devDependencies": {
+        "@commitlint/cli": "^8.2.0",
+        "@commitlint/config-conventional": "^8.2.0",
+        "@types/bcrypt": "^3.0.0",
+        "@types/jsonwebtoken": "^8.3.5",
+        "@types/koa": "^2.0.52",
+        "@types/koa-bodyparser": "^4.3.0",
+        "@types/koa-router": "^7.0.42",
+        "@types/koa2-cors": "^2.0.1",
+        "@typescript-eslint/eslint-plugin": "^2.6.1",
+        "@typescript-eslint/parser": "^2.6.1",
+        "cross-env": "^6.0.3",
+        "eslint": "^6.6.0",
+        "eslint-config-prettier": "^6.5.0",
+        "eslint-plugin-prettier": "^3.1.1",
+        "husky": "^3.0.9",
+        "prettier": "^1.19.0",
+        "typescript": "^3.7.2"
+    },
+    "husky": {
+        "hooks": {
+            "pre-commit": "npm run lint",
+            "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+        }
     }
-  }
 }

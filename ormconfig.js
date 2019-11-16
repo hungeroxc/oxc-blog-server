@@ -10,6 +10,6 @@ module.exports = {
     database: 'blogtest',
     synchronize: true,
     logging: false,
-    entities: [__dirname + '/src/entity/*{.ts,.js}'],
+    entities: [__dirname + '/dist/entity/*{.ts,.js}'],
     timezone: 'Z'
 }

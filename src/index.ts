@@ -6,20 +6,39 @@ import cors from 'koa2-cors'
 
 import { AppRoutes } from './routes'
 
-createConnection()
-    .then(async () => {
-        const app = new Koa()
-        const router = new Router()
-        const port = process.env.PORT || 3000
+const start = async () => {
+    try {
+        const connection = await createConnection()
+        await connection.synchronize()
+    } catch (error) {
+        console.log('TypeORM 链接失败: ', error)
+    }
 
-        // 注册路由
-        AppRoutes.forEach(route => router[route.method](route.path, route.action))
+    const app = new Koa()
+    const router = new Router()
+    const port = process.env.PORT || 3000
+    AppRoutes.forEach(route => router[route.method](route.path, route.action))
+    app.use(cors())
+        .use(bodyParser())
+        .use(router.routes())
+        .use(router.allowedMethods())
+    app.listen(port)
+}
+start()
+// const connection = await createConnection()
+//     .then(() => {
+//         const app = new Koa()
+//         const router = new Router()
+//         const port = process.env.PORT || 3000
 
-        app.use(cors())
-            .use(bodyParser())
-            .use(router.routes())
-            .use(router.allowedMethods())
+//         // 注册路由
+//         AppRoutes.forEach(route => router[route.method](route.path, route.action))
 
-        app.listen(port)
-    })
-    .catch(error => console.log('TypeORM 链接失败: ', error))
+//         app.use(cors())
+//             .use(bodyParser())
+//             .use(router.routes())
+//             .use(router.allowedMethods())
+
+//         app.listen(port)
+//     })
+//     .catch(error => console.log('TypeORM 链接失败: ', error))

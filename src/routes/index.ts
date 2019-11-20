@@ -21,5 +21,15 @@ export const AppRoutes: RouteItem[] = [
         path: '/api/article/create',
         method: 'post',
         action: ArticleController.createArticle
+    },
+    {
+        path: '/api/article/list',
+        method: 'get',
+        action: ArticleController.getArticleList
+    },
+    {
+        path: '/api/article/detail',
+        method: 'get',
+        action: ArticleController.getArticleById
     }
 ]

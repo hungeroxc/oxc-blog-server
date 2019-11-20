@@ -28,6 +28,43 @@ const ArticleController = {
             ctx.status = 400
             ctx.body = { message: '文章不符合规格' }
         }
+    },
+
+    // 获取文章列表
+    async getArticleList(ctx: Context) {
+        const { page = 1, pageSize = 10, keyword, sortName, sortType } = ctx.query
+        const getOrderByStatus = () => {
+            const orderByStatus: { sortName: string; sortType: 'DESC' | 'ASC' } = {
+                sortName: 'createdAt',
+                sortType: 'DESC'
+            }
+
+            if (sortName) {
+                orderByStatus.sortName = sortName
+                orderByStatus.sortType = sortType
+            }
+
+            return orderByStatus
+        }
+
+        const orderByStatus = getOrderByStatus()
+        const articleRepository = getManager().getRepository(Article)
+        const articles = await articleRepository
+            .createQueryBuilder('article')
+            .where('article.title like :title', { title: `%${!!keyword ? keyword : ''}%` })
+            .orderBy(orderByStatus.sortName, orderByStatus.sortType)
+            .skip(pageSize * (page - 1))
+            .take(pageSize)
+            .getManyAndCount()
+        ctx.body = { data: { list: articles[0], total: articles[1], current: Number(page) } }
+    },
+
+    // 单个文章获取
+    async getArticleById(ctx: Context) {
+        const { id } = ctx.query
+        const articleRepository = getManager().getRepository(Article)
+        const article = await articleRepository.findOne({ where: { id } })
+        ctx.body = { data: article, message: '获取成功' }
     }
 }
 

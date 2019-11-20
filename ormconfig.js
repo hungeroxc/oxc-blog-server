@@ -1,4 +1,5 @@
 const env = process.env
+const isDev = env.APP_ENV === 'development'
 
 module.exports = {
     type: 'mysql',
@@ -9,6 +10,6 @@ module.exports = {
     database: env.DBNAME,
     synchronize: true,
     logging: false,
-    entities: [__dirname + '/dist/entity/*{.ts,.js}'],
+    entities: isDev ? ['src/entity/*{.ts,.js}'] : [__dirname + '/dist/entity/*{.ts,.js}'],
     timezone: 'Z'
 }

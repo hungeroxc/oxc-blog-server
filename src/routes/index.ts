@@ -1,4 +1,4 @@
-import { UserController } from './../controller/index'
+import { UserController, ArticleController } from './../controller/index'
 
 export interface RouteItem {
     path: string
@@ -16,5 +16,10 @@ export const AppRoutes: RouteItem[] = [
         path: '/api/login',
         method: 'post',
         action: UserController.login
+    },
+    {
+        path: '/api/article/create',
+        method: 'post',
+        action: ArticleController.createArticle
     }
 ]

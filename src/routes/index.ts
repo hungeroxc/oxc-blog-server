@@ -31,5 +31,15 @@ export const AppRoutes: RouteItem[] = [
         path: '/api/article/detail',
         method: 'get',
         action: ArticleController.getArticleById
+    },
+    {
+        path: '/api/article/delete',
+        method: 'delete',
+        action: ArticleController.deleteArticleById
+    },
+    {
+        path: '/api/article/update',
+        method: 'put',
+        action: ArticleController.updateArticle
     }
 ]

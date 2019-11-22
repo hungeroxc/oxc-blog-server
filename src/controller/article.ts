@@ -65,6 +65,22 @@ const ArticleController = {
         const articleRepository = getManager().getRepository(Article)
         const article = await articleRepository.findOne({ where: { id } })
         ctx.body = { data: article, message: '获取成功' }
+    },
+
+    // 删除文章
+    async deleteArticleById(ctx: Context) {
+        const { id } = ctx.query
+        const articleRepository = getManager().getRepository(Article)
+        await articleRepository.delete({ id })
+        ctx.body = { code: 200, message: '删除成功' }
+    },
+
+    // 更新文章
+    async updateArticle(ctx: Context) {
+        const { content, title, id } = ctx.request.body
+        const articleRepository = getManager().getRepository(Article)
+        await articleRepository.update({ id }, { content, title })
+        ctx.body = { message: '更新成功' }
     }
 }
 

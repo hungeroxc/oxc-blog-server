@@ -18,6 +18,16 @@ export const AppRoutes: RouteItem[] = [
         action: UserController.login
     },
     {
+        path: '/api/user/list',
+        method: 'get',
+        action: UserController.getList
+    },
+    {
+        path: '/api/user/delete',
+        method: 'delete',
+        action: UserController.deleteUserById
+    },
+    {
         path: '/api/article/create',
         method: 'post',
         action: ArticleController.createArticle

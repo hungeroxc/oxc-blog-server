@@ -2,6 +2,7 @@ import { Context } from 'koa'
 import { getManager } from 'typeorm'
 
 import { Article } from './../entity'
+import { getOrderByStatus } from './../utils/getOrderByStatus'
 
 const ArticleController = {
     // 新增文章
@@ -33,21 +34,7 @@ const ArticleController = {
     // 获取文章列表
     async getArticleList(ctx: Context) {
         const { page = 1, pageSize = 10, keyword, sortName, sortType } = ctx.query
-        const getOrderByStatus = () => {
-            const orderByStatus: { sortName: string; sortType: 'DESC' | 'ASC' } = {
-                sortName: 'createdAt',
-                sortType: 'DESC'
-            }
-
-            if (sortName) {
-                orderByStatus.sortName = sortName
-                orderByStatus.sortType = sortType
-            }
-
-            return orderByStatus
-        }
-
-        const orderByStatus = getOrderByStatus()
+        const orderByStatus = getOrderByStatus(sortName, sortType)
         const articleRepository = getManager().getRepository(Article)
         const articles = await articleRepository
             .createQueryBuilder('article')

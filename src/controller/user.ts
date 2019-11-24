@@ -4,6 +4,7 @@ import { getManager } from 'typeorm'
 import { User } from './../entity'
 import { encrypt, comparePassword } from './../utils/bcrypt'
 import { createToken } from './../utils/token'
+import { getOrderByStatus } from './../utils/getOrderByStatus'
 
 const UserController = {
     // 注册
@@ -61,6 +62,31 @@ const UserController = {
             }
         }
         ctx.body = res
+    },
+
+    // 获取用户列表
+    async getList(ctx: Context) {
+        const { page = 1, pageSize = 10, sortName, sortType, keyword } = ctx.query
+        const userRepository = getManager().getRepository(User)
+        const orderByStatus = getOrderByStatus(sortName, sortType)
+        const users = await userRepository
+            .createQueryBuilder('user')
+            .skip(pageSize * (page - 1))
+            .take(pageSize)
+            .select(['user.auth', 'user.id', 'user.createdAt', 'user.username'])
+            .where('user.auth != 2')
+            .orderBy(orderByStatus.sortName, orderByStatus.sortType)
+            .where('user.username like :username', { username: `%${!!keyword ? keyword : ''}%` })
+            .getManyAndCount()
+        ctx.body = { data: { list: users[0], total: users[1], current: Number(page) } }
+    },
+
+    // 删除用户
+    async deleteUserById(ctx: Context) {
+        const { id } = ctx.query
+        const userRepository = getManager().getRepository(User)
+        await userRepository.delete({ id })
+        ctx.body = { code: 200, message: '删除成功' }
     }
 }
 

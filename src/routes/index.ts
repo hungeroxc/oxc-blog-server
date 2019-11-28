@@ -1,4 +1,4 @@
-import { UserController, ArticleController } from './../controller/index'
+import { UserController, ArticleController, TagController } from './../controller/index'
 
 export interface RouteItem {
     path: string
@@ -51,5 +51,15 @@ export const AppRoutes: RouteItem[] = [
         path: '/api/article/update',
         method: 'put',
         action: ArticleController.updateArticle
+    },
+    {
+        path: '/api/tag/list',
+        method: 'get',
+        action: TagController.getList
+    },
+    {
+        path: '/api/tag/articleList',
+        method: 'get',
+        action: ArticleController.getArticleListByTag
     }
 ]

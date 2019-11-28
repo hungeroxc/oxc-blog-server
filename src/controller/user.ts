@@ -66,16 +66,18 @@ const UserController = {
 
     // 获取用户列表
     async getList(ctx: Context) {
-        const { page = 1, pageSize = 10, sortName, sortType, keyword } = ctx.query
+        const { page = 1, pageSize = 10, sortName = 'createdAt', sortType, keyword } = ctx.query
         const userRepository = getManager().getRepository(User)
-        const orderByStatus = getOrderByStatus(sortName, sortType)
+        const orderByStatus = getOrderByStatus('user', sortName, sortType)
         const users = await userRepository
             .createQueryBuilder('user')
             .skip(pageSize * (page - 1))
             .take(pageSize)
             .select(['user.auth', 'user.id', 'user.createdAt', 'user.username'])
             .where('user.auth != 2')
-            .orderBy(orderByStatus.sortName, orderByStatus.sortType)
+            .orderBy({
+                [orderByStatus.sortName]: orderByStatus.sortType
+            })
             .where('user.username like :username', { username: `%${!!keyword ? keyword : ''}%` })
             .getManyAndCount()
         ctx.body = { data: { list: users[0], total: users[1], current: Number(page) } }

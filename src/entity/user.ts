@@ -1,7 +1,9 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn } from 'typeorm'
+import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm'
+
+import BaseEntity from './base'
 
 @Entity()
-class User {
+class User extends BaseEntity {
     @PrimaryGeneratedColumn()
     id: number
 
@@ -13,12 +15,6 @@ class User {
 
     @Column({ type: 'tinyint', width: 4 })
     auth: number
-
-    @CreateDateColumn()
-    createdAt: string
-
-    @UpdateDateColumn()
-    updatedAt: string
 }
 
 export default User

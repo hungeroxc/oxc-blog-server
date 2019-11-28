@@ -3,15 +3,12 @@ interface OrderStatus {
     sortType: 'DESC' | 'ASC'
 }
 
-export const getOrderByStatus = (sortName: string, sortType: 'DESC' | 'ASC'): OrderStatus => {
+export const getOrderByStatus = (dataName: string, sortName: string, sortType: 'DESC' | 'ASC'): OrderStatus => {
     const orderByStatus: OrderStatus = {
-        sortName: 'createdAt',
+        sortName: `${dataName}.${sortName}`,
         sortType: 'DESC'
     }
 
-    if (!!sortName) {
-        orderByStatus.sortName = sortName
-    }
     if (!!sortType) {
         orderByStatus.sortType = sortType
     }

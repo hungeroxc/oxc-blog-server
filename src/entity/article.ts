@@ -1,7 +1,10 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn } from 'typeorm'
+import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable } from 'typeorm'
+
+import BaseEntity from './base'
+import { Tag } from './../entity'
 
 @Entity()
-class Article {
+class Article extends BaseEntity {
     @PrimaryGeneratedColumn()
     id: number
 
@@ -11,14 +14,15 @@ class Article {
     @Column({ type: 'varchar', length: 255 })
     title: string
 
-    @Column({ type: 'int' })
+    @Column({ type: 'int', nullable: true })
     viewCount: number
 
-    @CreateDateColumn()
-    createdAt: Date
-
-    @UpdateDateColumn()
-    updatedAt: Date
+    @ManyToMany(
+        () => Tag,
+        tag => tag.articles
+    )
+    @JoinTable()
+    tags: Tag[]
 }
 
 export default Article

@@ -5,6 +5,7 @@ import { createConnection } from 'typeorm'
 import cors from 'koa2-cors'
 
 import { AppRoutes } from './routes'
+import checkAuthFun from './middlewares/authHandler'
 
 createConnection()
     .then(() => {
@@ -17,6 +18,7 @@ createConnection()
 
         app.use(cors())
             .use(bodyParser())
+            .use(checkAuthFun)
             .use(router.routes())
             .use(router.allowedMethods())
 

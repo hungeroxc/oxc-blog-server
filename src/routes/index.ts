@@ -61,5 +61,10 @@ export const AppRoutes: RouteItem[] = [
         path: '/api/tag/articleList',
         method: 'get',
         action: ArticleController.getArticleListByTag
+    },
+    {
+        path: '/api/test',
+        method: 'get',
+        action: TagController.test
     }
 ]

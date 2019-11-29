@@ -12,6 +12,9 @@ const TagController = {
             .loadRelationCountAndMap('tag.count', 'tag.articles')
             .getMany()
         ctx.body = { data: tagList }
+    },
+    async test(ctx: Context) {
+        ctx.body = { message: '请求成功' }
     }
 }
 

@@ -3,7 +3,7 @@ import { CreateDateColumn, UpdateDateColumn } from 'typeorm'
 import { getTimeTransformer } from './../utils/transformDate'
 
 // 基类
-abstract class BaseEntity {
+abstract class BaseEntity implements IBase.Item {
     @CreateDateColumn({ type: 'timestamp', transformer: getTimeTransformer() })
     createdAt: string
 

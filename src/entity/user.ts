@@ -3,7 +3,7 @@ import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm'
 import BaseEntity from './base'
 
 @Entity()
-class User extends BaseEntity {
+class User extends BaseEntity implements IUser.Item {
     @PrimaryGeneratedColumn()
     id: number
 
@@ -14,7 +14,7 @@ class User extends BaseEntity {
     password: string
 
     @Column({ type: 'tinyint', width: 4 })
-    auth: number
+    auth: 1 | 2
 }
 
 export default User

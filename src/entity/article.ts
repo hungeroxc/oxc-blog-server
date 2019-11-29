@@ -4,7 +4,7 @@ import BaseEntity from './base'
 import { Tag } from './../entity'
 
 @Entity()
-class Article extends BaseEntity {
+class Article extends BaseEntity implements IArticle.Item {
     @PrimaryGeneratedColumn()
     id: number
 

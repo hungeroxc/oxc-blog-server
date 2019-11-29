@@ -11,5 +11,5 @@ module.exports = {
     logging: false,
     entities: isDev ? ['src/entity/*{.ts,.js}'] : [__dirname + '/dist/entity/*{.ts,.js}'],
     timezone: 'Z',
-    dateStrings: 'Z'
+    dateStrings: 'TIMESTAMP'
 }

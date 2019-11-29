@@ -1,13 +1,12 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToMany, Unique } from 'typeorm'
+import { Entity, Column, PrimaryGeneratedColumn, ManyToMany } from 'typeorm'
 import { Article } from './index'
 
 @Entity()
-@Unique(['value'])
-class Tag {
+class Tag implements ITag.Item {
     @PrimaryGeneratedColumn()
     id: number
 
-    @Column({ type: 'varchar', length: 100 })
+    @Column({ type: 'varchar', length: 100, unique: true })
     value: string
 
     @ManyToMany(

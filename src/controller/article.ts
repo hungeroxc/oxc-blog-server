@@ -75,7 +75,10 @@ const ArticleController = {
     async getArticleById(ctx: Context) {
         const { id } = ctx.query
         const articleRepository = getManager().getRepository(Article)
-        const article = await articleRepository.findOne({ where: { id }, relations: ['tags'] })
+        const targetArticle = await articleRepository.findOne({ where: { id }, relations: ['tags'] })
+        // 点一次加一次
+        targetArticle.viewCount = targetArticle.viewCount + 1
+        const article = await articleRepository.save(targetArticle)
         ctx.body = { data: article, message: '获取成功' }
     },
 

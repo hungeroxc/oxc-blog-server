@@ -9,6 +9,7 @@ module.exports = {
     password: env.DBPASSWORD,
     database: env.DBNAME,
     logging: false,
+    synchronize: true,
     entities: isDev ? ['src/entity/*{.ts,.js}'] : [__dirname + '/dist/entity/*{.ts,.js}'],
     timezone: 'Z',
     dateStrings: 'TIMESTAMP'

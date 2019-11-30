@@ -44,13 +44,22 @@ const ArticleController = {
 
     // 获取文章列表
     async getArticleList(ctx: Context) {
-        const { page = 1, pageSize = 10, keyword, sortName = 'createdAt', sortType } = ctx.query
+        const { page = 1, pageSize = 10, keyword, sortName = 'createdAt', sortType, tag } = ctx.query
         const orderByStatus = getOrderByStatus('article', sortName, sortType)
         const articleRepository = getManager().getRepository(Article)
-        const articles = await articleRepository
-            .createQueryBuilder('article')
-            .leftJoinAndSelect('article.tags', 'tag')
 
+        let filterProcess
+        if (!!tag) {
+            filterProcess = await articleRepository
+                .createQueryBuilder('article')
+                .innerJoinAndSelect('article.tags', 'tag', 'tag.value = :value', { value: tag })
+        } else {
+            filterProcess = await articleRepository
+                .createQueryBuilder('article')
+                .leftJoinAndSelect('article.tags', 'tag')
+        }
+
+        const articles = await filterProcess
             .where('article.title like :title', { title: `%${!!keyword ? keyword : ''}%` })
             .orderBy({
                 [orderByStatus.sortName]: orderByStatus.sortType
@@ -60,18 +69,6 @@ const ArticleController = {
             .getManyAndCount()
 
         ctx.body = { data: { list: articles[0], total: articles[1], current: Number(page) } }
-    },
-
-    // 通过tag获取文章列表
-    async getArticleListByTag(ctx: Context) {
-        const { tag } = ctx.query
-        const articleRepository = getManager().getRepository(Article)
-        const articles = await articleRepository
-            .createQueryBuilder('article')
-            .innerJoin('article.tags', 'tag', 'tag.value = :value', { value: tag })
-            .select(['article.id', 'article.title', 'article.createdAt'])
-            .getManyAndCount()
-        ctx.body = { data: { list: articles[0], count: articles[1] } }
     },
 
     // 单个文章获取

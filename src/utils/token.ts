@@ -4,7 +4,7 @@ import { Context } from 'koa'
 import { AuthItem } from './../middlewares/authHandler'
 
 const TOKEN_SECRET_KEY = 'oxc-blog'
-const TOKEN_EXPIRESIN = '720h'
+const TOKEN_EXPIRESIN = '24h'
 
 interface UserInfo {
     username: string

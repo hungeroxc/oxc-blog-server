@@ -16,8 +16,7 @@ const UserController = {
             const checkUser = await userRepository.findOne({ username })
             let res
             if (!!checkUser) {
-                ctx.status = 400
-                res = { message: '用户名已被注册' }
+                ctx.throw(400, '用户名已被注册')
             } else {
                 const saltPassword = await encrypt(password)
                 const newUser = userRepository.create({
@@ -30,8 +29,7 @@ const UserController = {
             }
             ctx.body = res
         } else {
-            ctx.status = 400
-            ctx.body = { message: '用户名和密码不能为空' }
+            ctx.throw(400, '用户名和密码不能为空')
         }
     },
 
@@ -42,13 +40,11 @@ const UserController = {
 
         let res
         if (!user) {
-            ctx.status = 400
-            res = { message: '用户不存在' }
+            ctx.throw(400, '用户不存在')
         } else {
             const isMatch = await comparePassword(password, user.password)
             if (!isMatch) {
-                ctx.status = 400
-                res = { message: '密码不正确' }
+                ctx.throw(400, '密码不正确')
             } else {
                 const { id, auth } = user
                 const token = createToken({ username, id, auth })

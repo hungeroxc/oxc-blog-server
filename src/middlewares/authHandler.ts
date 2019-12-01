@@ -41,8 +41,7 @@ const checkAuthFun = async (ctx: Context, next: () => Promise<any>) => {
         if (checkToken(ctx, authList)) {
             await next()
         } else {
-            ctx.status = 401
-            ctx.body = { message: '无权限进行操作' }
+            ctx.throw(403, '无权限进行操作')
         }
     } else {
         await next()

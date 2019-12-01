@@ -17,8 +17,7 @@ const ArticleController = {
             let res
             const checkArticle = await articleRepository.findOne({ title })
             if (!!checkArticle) {
-                ctx.status = 400
-                res = { message: '该文章已存在' }
+                ctx.throw(400, '该文章已存在')
             } else {
                 // 存储tags并返回结果
                 const tagList: TagItem[] = tags.map((t: string) => ({ value: t }))
@@ -37,8 +36,7 @@ const ArticleController = {
                 ctx.body = res
             }
         } else {
-            ctx.status = 400
-            ctx.body = { message: '文章不符合规格' }
+            ctx.throw(400, '文章不符合规格')
         }
     },
 

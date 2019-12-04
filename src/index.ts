@@ -6,7 +6,7 @@ import cors from 'koa2-cors'
 
 import { AppRoutes } from './routes'
 import checkAuthFun from './middlewares/authHandler'
-import errorHandler from './middlewares/errorHandler'
+// import errorHandler from './middlewares/errorHandler'
 
 createConnection()
     .then(() => {
@@ -20,7 +20,7 @@ createConnection()
         app.use(cors())
             .use(bodyParser())
             .use(checkAuthFun)
-            .use(errorHandler)
+            // .use(errorHandler)
             .use(router.routes())
             .use(router.allowedMethods())
 

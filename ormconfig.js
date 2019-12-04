@@ -10,7 +10,7 @@ module.exports = {
     database: env.DBNAME,
     logging: false,
     synchronize: true,
-    entities: isDev ? ['src/entity/*{.ts,.js}'] : [__dirname + '/dist/entity/src/*{.ts,.js}'],
+    entities: isDev ? ['src/entity/*{.ts,.js}'] : [__dirname + '/dist/src/entity/*{.ts,.js}'],
     timezone: 'Z',
     dateStrings: 'TIMESTAMP'
 }

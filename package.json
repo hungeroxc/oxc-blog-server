@@ -5,9 +5,8 @@
     "main": "index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "dev": "cross-env PORT=3000 APP_ENV=qa DBNAME=blogtest DBACCOUNT=www DBPASSWORD=www nodemon ./src/index.ts",
-        "build:prod": "rm -rf dist && cross-env APP_ENV=prod tsc",
-        "build:qa": "rm -rf dist && cross-env APP_ENV=qa tsc",
+        "dev": "cross-env PORT=3000 DBNAME=blogtest DBACCOUNT=www DBPASSWORD=www nodemon ./src/index.ts",
+        "build": "rm -rf dist && tsc",
         "lint": "eslint src --ext .ts,.tsx"
     },
     "keywords": [],

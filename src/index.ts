@@ -8,8 +8,6 @@ import { AppRoutes } from './routes'
 import checkAuthFun from './middlewares/authHandler'
 import errorHandler from './middlewares/errorHandler'
 
-console.log(process.env.NODE_ENV, process.env.PORT)
-
 createConnection()
     .then(() => {
         const app = new Koa()

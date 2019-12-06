@@ -12,7 +12,6 @@ createConnection()
     .then(() => {
         const app = new Koa()
         const router = new Router()
-        const port = process.env.PORT || 3000
 
         // 注册路由
         AppRoutes.forEach(route => router[route.method](route.path, route.action))
@@ -24,6 +23,6 @@ createConnection()
             .use(router.routes())
             .use(router.allowedMethods())
 
-        app.listen(process.env.APP_ENV === 'prod' ? port : 3001)
+        app.listen(3000)
     })
     .catch(error => console.log('TypeORM 链接失败: ', error))

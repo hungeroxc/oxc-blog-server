@@ -24,6 +24,6 @@ createConnection()
             .use(router.routes())
             .use(router.allowedMethods())
 
-        app.listen(port)
+        app.listen(process.env.APP_ENV === 'prod' ? port : 3001)
     })
     .catch(error => console.log('TypeORM 链接失败: ', error))

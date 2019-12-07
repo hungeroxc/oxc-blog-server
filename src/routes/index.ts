@@ -1,4 +1,4 @@
-import { UserController, ArticleController, TagController } from './../controller/index'
+import { UserController, ArticleController, TagController, QiniuController } from './../controller/index'
 
 export interface RouteItem {
     path: string
@@ -61,5 +61,11 @@ export const AppRoutes: RouteItem[] = [
         path: '/api/test',
         method: 'get',
         action: TagController.test
+    },
+    // 七牛上传凭证
+    {
+        path: '/api/qiniu/token',
+        method: 'get',
+        action: QiniuController.qiniuUpload
     }
 ]

@@ -29,7 +29,7 @@ const ArticleController = {
                     title,
                     content,
                     viewCount: 0,
-                    tags: [...tagsRes, ...filterExistTag]
+                    tags: !!tagList.length ? [...tagsRes, ...filterExistTag] : []
                 })
                 await articleRepository.save(newArticle)
                 res = { message: '创建文章成功' }

@@ -10,6 +10,7 @@ const QiniuController = {
         const mac = new qiniu.auth.digest.Mac(ak, sk)
         const putPolicy = new qiniu.rs.PutPolicy({ scope: bucket })
         const uploadToken = putPolicy.uploadToken(mac)
+        console.log()
         ctx.body = { data: { token: uploadToken } }
     }
 }

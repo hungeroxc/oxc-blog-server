@@ -1,3 +1,5 @@
 export { default as User } from './user'
 export { default as Article } from './article'
 export { default as Tag } from './tag'
+export { default as Comment } from './comment'
+export { default as Reply } from './reply'

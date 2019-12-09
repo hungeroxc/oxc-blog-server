@@ -9,5 +9,7 @@ export interface Item extends IBase.Item {
     // 查看数
     viewCount: number
     // 标签
-    tags?: ITag.Item[]
+    tags: ITag.Item[]
+    // 对应评论
+    comments: IComment.Item[]
 }

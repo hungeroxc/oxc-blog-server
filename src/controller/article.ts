@@ -73,10 +73,42 @@ const ArticleController = {
     async getArticleById(ctx: Context) {
         const { id } = ctx.query
         const articleRepository = getManager().getRepository(Article)
-        const targetArticle = await articleRepository.findOne({ where: { id }, relations: ['tags'] })
+        const targetArticle = await articleRepository.findOne({ where: { id } })
         // 点一次加一次
         targetArticle.viewCount = targetArticle.viewCount + 1
-        const article = await articleRepository.save(targetArticle)
+        await articleRepository.save(targetArticle)
+        const article = await articleRepository
+            .createQueryBuilder('article')
+            .leftJoinAndSelect('article.tags', 'tag')
+            .leftJoinAndSelect('article.comments', 'comment')
+            .leftJoinAndSelect('comment.user', 'user')
+            .leftJoinAndSelect('comment.replies', 'reply')
+            .leftJoinAndSelect('reply.replyUser', 'replyUser')
+            // em....
+            .select([
+                'article.id',
+                'article.content',
+                'article.createdAt',
+                'article.title',
+                'article.updatedAt',
+                'article.viewCount',
+                'tag.id',
+                'tag.value',
+                'comment.content',
+                'comment.id',
+                'comment.createdAt',
+                'user.id',
+                'user.username',
+                'reply.id',
+                'reply.content',
+                'reply.createdAt',
+                'reply.targetUsername',
+                'replyUser.id',
+                'replyUser.username'
+            ])
+            .where('article.id like :id', { id })
+            .getOne()
+
         ctx.body = { data: article, message: '获取成功' }
     },
 

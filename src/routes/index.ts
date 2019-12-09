@@ -1,4 +1,11 @@
-import { UserController, ArticleController, TagController, QiniuController } from './../controller/index'
+import {
+    UserController,
+    ArticleController,
+    TagController,
+    QiniuController,
+    CommentController,
+    ReplyController
+} from './../controller/index'
 
 export interface RouteItem {
     path: string
@@ -61,6 +68,17 @@ export const AppRoutes: RouteItem[] = [
         path: '/api/test',
         method: 'get',
         action: TagController.test
+    },
+    // 评论相关
+    {
+        path: '/api/discuss/publish',
+        method: 'post',
+        action: CommentController.createComment
+    },
+    {
+        path: '/api/discuss/reply',
+        method: 'post',
+        action: ReplyController.createReply
     },
     // 七牛上传凭证
     {

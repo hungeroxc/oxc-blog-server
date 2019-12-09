@@ -8,4 +8,6 @@ export interface Item extends IBase.Item {
     password: string
     // 权限
     auth: 1 | 2
+    // 对应评论
+    comments: IComment.Item[]
 }

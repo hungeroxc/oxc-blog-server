@@ -1,7 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable } from 'typeorm'
+import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable, OneToMany } from 'typeorm'
 
 import BaseEntity from './base'
-import { Tag } from './../entity'
+import { Tag, Comment } from './../entity'
 
 @Entity()
 class Article extends BaseEntity implements IArticle.Item {
@@ -16,6 +16,12 @@ class Article extends BaseEntity implements IArticle.Item {
 
     @Column({ type: 'int', nullable: true })
     viewCount: number
+
+    @OneToMany(
+        () => Comment,
+        comment => comment.article
+    )
+    comments: Comment[]
 
     @ManyToMany(
         () => Tag,

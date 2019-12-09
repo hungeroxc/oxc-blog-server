@@ -58,6 +58,8 @@ const ArticleController = {
         }
 
         const articles = await filterProcess
+            .leftJoinAndSelect('article.comments', 'comment')
+            .leftJoinAndSelect('comment.replies', 'reply')
             .where('article.title like :title', { title: `%${!!keyword ? keyword : ''}%` })
             .orderBy({
                 [orderByStatus.sortName]: orderByStatus.sortType

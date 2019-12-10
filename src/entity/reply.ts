@@ -4,7 +4,7 @@ import BaseEntity from './base'
 import { User, Comment } from './index'
 
 @Entity()
-class Reply extends BaseEntity {
+class Reply extends BaseEntity implements IReply.ITem {
     @PrimaryGeneratedColumn()
     id: number
 

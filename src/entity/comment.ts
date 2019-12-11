@@ -13,19 +13,22 @@ class Comment extends BaseEntity implements IComment.Item {
 
     @ManyToOne(
         () => Article,
-        article => article.comments
+        article => article.comments,
+        { onDelete: 'CASCADE' }
     )
     article: Article
 
     @ManyToOne(
         () => User,
-        user => user.comments
+        user => user.comments,
+        { onDelete: 'CASCADE' }
     )
     user: User
 
     @OneToMany(
         () => Reply,
-        reply => reply.comment
+        reply => reply.comment,
+        { onDelete: 'CASCADE' }
     )
     replies: Reply[]
 }

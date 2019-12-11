@@ -42,6 +42,13 @@ const CommentController = {
             .getOne()
 
         ctx.body = { data: resComment }
+    },
+    // 删除评论
+    async deleteComment(ctx: Context) {
+        const { id } = ctx.query
+        const commentRepository = getManager().getRepository(Comment)
+        await commentRepository.delete({ id })
+        ctx.body = { message: '删除成功' }
     }
 }
 

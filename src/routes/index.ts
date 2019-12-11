@@ -76,9 +76,19 @@ export const AppRoutes: RouteItem[] = [
         action: CommentController.createComment
     },
     {
+        path: '/api/discuss/delete',
+        method: 'delete',
+        action: CommentController.deleteComment
+    },
+    {
         path: '/api/discuss/reply',
         method: 'post',
         action: ReplyController.createReply
+    },
+    {
+        path: '/api/discuss/reply/delete',
+        method: 'delete',
+        action: ReplyController.deleteReply
     },
     // 七牛上传凭证
     {

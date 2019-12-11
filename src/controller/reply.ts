@@ -38,6 +38,13 @@ const ReplyController = {
             .getOne()
 
         ctx.body = { data: resReply }
+    },
+    // 删除评论
+    async deleteReply(ctx: Context) {
+        const { id } = ctx.query
+        const replyRepository = getManager().getRepository(Reply)
+        await replyRepository.delete({ id })
+        ctx.body = { message: '删除成功' }
     }
 }
 

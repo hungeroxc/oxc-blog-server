@@ -16,13 +16,15 @@ class Reply extends BaseEntity implements IReply.ITem {
 
     @ManyToOne(
         () => User,
-        user => user.replies
+        user => user.replies,
+        { onDelete: 'CASCADE' }
     )
     replyUser: User
 
     @ManyToOne(
         () => Comment,
-        comment => comment.replies
+        comment => comment.replies,
+        { onDelete: 'CASCADE' }
     )
     comment: Comment
 }

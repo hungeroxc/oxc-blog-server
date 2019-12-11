@@ -75,6 +75,7 @@ const UserController = {
                 [orderByStatus.sortName]: orderByStatus.sortType
             })
             .where('user.username like :username', { username: `%${!!keyword ? keyword : ''}%` })
+            .andWhere('user.auth like :auth', { auth: 1 })
             .getManyAndCount()
         ctx.body = { data: { list: users[0], total: users[1], current: Number(page) } }
     },

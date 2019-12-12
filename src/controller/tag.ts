@@ -10,6 +10,7 @@ const TagController = {
             .createQueryBuilder('tag')
             .leftJoinAndSelect('tag.articles', 'article')
             .loadRelationCountAndMap('tag.count', 'tag.articles')
+            .select(['tag.id', 'tag.value', 'article.id', 'article.title'])
             .getMany()
         ctx.body = { data: tagList }
     },

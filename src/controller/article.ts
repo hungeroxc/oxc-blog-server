@@ -42,7 +42,7 @@ const ArticleController = {
 
     // 获取文章列表
     async getArticleList(ctx: Context) {
-        const { page = 1, pageSize = 10, keyword, sortName = 'createdAt', sortType, tag } = ctx.query
+        const { page = 1, pageSize = 10, keyword, sortName = 'createdAt', sortType, tag, justTitle } = ctx.query
         const orderByStatus = getOrderByStatus('article', sortName, sortType)
         const articleRepository = getManager().getRepository(Article)
 
@@ -57,7 +57,7 @@ const ArticleController = {
                 .leftJoinAndSelect('article.tags', 'tag')
         }
 
-        const articles = await filterProcess
+        const articlesFilterProcess = await filterProcess
             .leftJoinAndSelect('article.comments', 'comment')
             .leftJoinAndSelect('comment.replies', 'reply')
             .where('article.title like :title', { title: `%${!!keyword ? keyword : ''}%` })
@@ -66,7 +66,18 @@ const ArticleController = {
             })
             .skip(pageSize * (page - 1))
             .take(pageSize)
-            .getManyAndCount()
+
+        let articles
+        if (justTitle) {
+            articles = await articlesFilterProcess
+                .select(['article.id', 'article.title', 'article.viewCount', 'article.createdAt'])
+                .getManyAndCount()
+        } else {
+            articles = await articlesFilterProcess.getManyAndCount()
+            articles[0].forEach(item => {
+                item.content = item.content.slice(0, 500)
+            })
+        }
 
         ctx.body = { data: { list: articles[0], total: articles[1], current: Number(page) } }
     },

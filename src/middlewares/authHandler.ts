@@ -15,7 +15,9 @@ export interface AuthItem {
 // 管理员权限
 const verifyList: VerifyListItem[] = [
     { regexp: /\/article/, required: 'post put delete' },
-    { regexp: /\/user/, required: 'get put delete' }
+    { regexp: /\/user/, required: 'get put delete' },
+    { regexp: /\/qiniu/, required: 'all' },
+    { regexp: /\/discuss/, required: 'delete' }
 ]
 
 // 检测路由是否需要权限，返回列表

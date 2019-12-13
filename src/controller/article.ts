@@ -42,7 +42,16 @@ const ArticleController = {
 
     // 获取文章列表
     async getArticleList(ctx: Context) {
-        const { page = 1, pageSize = 10, keyword, sortName = 'createdAt', sortType, tag, justTitle } = ctx.query
+        const {
+            page = 1,
+            pageSize = 10,
+            keyword,
+            sortName = 'createdAt',
+            sortType,
+            tag,
+            justTitle,
+            isContentLimit
+        } = ctx.query
         const orderByStatus = getOrderByStatus('article', sortName, sortType)
         const articleRepository = getManager().getRepository(Article)
 
@@ -74,9 +83,11 @@ const ArticleController = {
                 .getManyAndCount()
         } else {
             articles = await articlesFilterProcess.getManyAndCount()
-            articles[0].forEach(item => {
-                item.content = item.content.slice(0, 500)
-            })
+            if (isContentLimit) {
+                articles[0].forEach(item => {
+                    item.content = item.content.slice(0, 500)
+                })
+            }
         }
 
         ctx.body = { data: { list: articles[0], total: articles[1], current: Number(page) } }

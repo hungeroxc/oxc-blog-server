@@ -1,5 +1,5 @@
 const env = process.env
-const appIsDev = env.APP_ENV === 'qa'
+const appIsDev = env.APP_ENV === 'dev'
 
 module.exports = {
     type: 'mysql',

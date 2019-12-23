@@ -5,7 +5,7 @@
     "main": "index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "dev": "cross-env APP_ENV=qa NODE_ENV=qa DBNAME=blogtest DBACCOUNT=www DBPASSWORD=www nodemon ./src/index.ts",
+        "dev": "nodemon ./src/index.ts",
         "build": "rm -rf dist && tsc",
         "lint": "eslint src --ext .ts,.tsx"
     },
@@ -23,7 +23,6 @@
         "lodash": "^4.17.15",
         "mysql2": "^2.0.0",
         "qiniu": "^7.2.2",
-        "reflect-metadata": "^0.1.13",
         "typeorm": "^0.2.20"
     },
     "devDependencies": {

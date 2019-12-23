@@ -8,7 +8,12 @@
     "watch": ["src"],
     "env": {
         "TS_NODE_FILES": "true",
-        "TS_NODE_PROJECT": "./tsconfig.json"
+        "TS_NODE_PROJECT": "./tsconfig.json",
+        "APP_ENV": "dev",
+        "NODE_ENV": "qa",
+        "DBNAME": "blogtest",
+        "DBACCOUNT": "www",
+        "DBPASSWORD": "www"
     },
     "ext": "js,json,ts"
 }
